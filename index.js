@@ -5,28 +5,15 @@ const PRIVATE_KEY = "<YOUR_PRIVATE_KEY>";
 
 const simpleWalletAddress = "<YOUR_INSTANCE_ADDRESS>";
 
-// Query the balance of the contract by calling
-// the getBalance function
-const getBalance = async (simpleWallet) => {
-  const result = await simpleWallet.callStatic.getBalance();
-  console.log(
-    "Current Balance in SimpleWallet: ",
-    ethers.utils.formatEther(result),
-    " $RinkebyETH"
-  );
-};
-
 const main = async () => {
   // Inits a new ethers object with a provider
-  const provider = ethers.getDefaultProvider("<YOUR_RINKEBY_PROVIDER>");
+  const provider = ethers.getDefaultProvider("<YOUR_GOERLI_PROVIDER>");
 
   // Inits a new ethers wallet to send transactions
   const signer = new ethers.Wallet(PRIVATE_KEY, provider);
 
   // Inits a new SimpleWallet instance
   const simpleWallet = new ethers.Contract(simpleWalletAddress, abi, signer);
-
-  await getBalance(simpleWallet);
 
   // Withdraw funds from the contract
   try {
@@ -39,6 +26,14 @@ const main = async () => {
     console.log("Funds can't be withdrawn");
     console.error(error);
   }
+
+  // Query the balance of the contract by calling
+  // the getBalance function
+  provider.getBalance(simpleWalletAddress).then((balance) => {
+    // convert a currency unit from wei to ether
+    const balanceInEth = ethers.utils.formatEther(balance);
+    console.log(`Current balance in SimpleWallet: ${balanceInEth} ETH`);
+  });
 };
 
 main();
