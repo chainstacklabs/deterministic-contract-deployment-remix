@@ -12,4 +12,4 @@ npm install
 node index.js
 ```
 
-### Visit [chainstack blog post on deterministic deployment](https://staging1.chainstack.com/deploying-deterministic-contracts-on-ethereum-avalanche-fuji-bonus/) for full tutorial
+#### Visit [chainstack blog post on deterministic deployment](https://staging1.chainstack.com/deploying-deterministic-contracts-on-ethereum-avalanche-fuji-bonus/) for full tutorial
